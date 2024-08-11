@@ -9,4 +9,14 @@ class Kps extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+        /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'prodi',
+    ];
 }

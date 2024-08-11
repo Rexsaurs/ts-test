@@ -34,16 +34,6 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('12345678'), //Default Password
                 'role' => 'Alumni'
             ],
-
-            // KPS
-            [
-                'name' => 'KPS',
-                'email' => 'kps@email.com',
-                'username' => '123513131345',
-                'phone_number' => '0408289578',
-                'password' => Hash::make('12345678'), //Default Password
-                'role' => 'KPS'
-            ],
         ]);
     }
 }

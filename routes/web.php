@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessPolicyController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\KuesionerController;
@@ -37,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('list_alumni', 'index')->name('index');
         Route::get('chart_alumni', 'chart')->name('chart');
         Route::get('pdf_generator', 'export_pdf')->name('pdf');
+        Route::get('export_excel', 'export_excel')->name('excel');
         Route::get('view_kuesioner/{user_id}', 'view_kuesioner')->name('view_kuesioner');
     });
 
@@ -68,8 +70,14 @@ Route::middleware(['auth'])->group(function () {
     // Middleware Chart Alumni
     Route::controller(ChartController::class)->as('chart.')->group(function () {
         Route::get('alumni-chart', 'get_alumni_info')->name('alumni-chart');
-
     });
+
+        // Middleware Access Policy
+        Route::controller(AccessPolicyController::class)->as('access-policy.')->group(function () {
+            Route::get('kps', 'index')->name('kps');
+            Route::get('add-kps', 'create_kps')->name('add-kps');
+            Route::post('f_create', 'f_create')->name('f_create');
+        });
 });
 
 Route::get('/about', function () {

@@ -33,11 +33,13 @@ class KuesionerController extends Controller
         //Begin db transaction for questionare answers
         DB::beginTransaction();
 
+       $payment_source = array_key_exists("p_university_payment_source", $form_value) ? $form_value['p_university_payment_source'] : null;
+       
         //Table Kuesioner
         DB::table('kuesioner')->insert([
             'alumni_id' => $user->alumni->id,
             'alumni_status' => $form_value['p_alumni_status'],
-            'university_payment_source' => $form_value['p_university_payment_source'] == "7" ? $form_value['p_university_payment_source_remarks']: $form_value['p_university_payment_source'],
+            'university_payment_source' => $payment_source ? ($payment_source == "7" ? $form_value['p_university_payment_source_remarks']: $payment_source) : null,
             'lecture_method' => $form_value['p_lecture_method'],
             'demo_method' => $form_value['p_demo_method'],
             'project_method' => $form_value['p_project_method'],
