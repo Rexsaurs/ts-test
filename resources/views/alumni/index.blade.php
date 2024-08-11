@@ -37,6 +37,9 @@
                 <a href="{{ route('alumni.pdf') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-download fa-sm text-white-50"></i> Generate PDF
                 </a>
+                <a href="{{ route('alumni.excel') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-download fa-sm text-white-50"></i> Generate Excel
+                </a>
                 <br>
                 <hr>
                 <div class="table-responsive">

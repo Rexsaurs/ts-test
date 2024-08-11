@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserExports;
 use App\Models\Alumni;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AlumniController extends Controller
 {
@@ -26,6 +28,8 @@ class AlumniController extends Controller
 
     public function export_excel()
     {
+
+        return Excel::download(new UserExports, 'users.xlsx');
     }
 
     public function export_pdf(Request $request)

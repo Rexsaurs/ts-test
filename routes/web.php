@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('list_alumni', 'index')->name('index');
         Route::get('chart_alumni', 'chart')->name('chart');
         Route::get('pdf_generator', 'export_pdf')->name('pdf');
+        Route::get('export_excel', 'export_excel')->name('excel');
         Route::get('view_kuesioner/{user_id}', 'view_kuesioner')->name('view_kuesioner');
     });
 
