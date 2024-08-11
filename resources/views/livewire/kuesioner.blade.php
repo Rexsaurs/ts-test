@@ -4,10 +4,10 @@
     $kuesioner_competency_graduation = null;
     $kuesioner_job_hunt = null;
     $kuesioner_compatibility = null;
-    
+
     if ($work) {
         $kuesioner_work = $work->kuesioner_work;
-    
+
         foreach ($work->kuesioner_competency as $key => $value) {
             if ($value->type == 'graduation') {
                 $kuesioner_competency_graduation = $value;
@@ -243,7 +243,7 @@
                                 <td valign='top'>Menurut Anda seberapa besar penekanan pada metode pembelajaran
                                     di
                                     bawah ini
-                                    ketika dilaksanakan di program studi Anda di PNJ?</td>
+                                    ketika dilaksanakan di program studi Anda di JTIK PNJ?</td>
                                 <td valign='top'>:</td>
                                 <td>
                                     <table class='table table-striped table-responsive'>
