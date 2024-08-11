@@ -14,7 +14,7 @@ class AlumniSeeder extends Seeder
     {
         Alumni::create([
                 "user_id" => 2,
-                "prodi" => 'Teknik Informatika - TI',
+                "prodi" => 'Teknik Informatika',
                 "jenjang" => 'D4',
                 "jenis_kelamin" => 'Laki-laki',
                 "agama" => 'Islam',
