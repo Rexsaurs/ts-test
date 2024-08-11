@@ -25,6 +25,7 @@
     <!-- Favicon -->
     <link href="{{ url('asset_pnj/Logo_pnj_favicon.jpg') }}" rel="icon" type="image/png">
     @livewireStyles
+    @powerGridStyles
 </head>
 
 <body id="page-top">
@@ -168,6 +169,7 @@
     </style>
 
     @livewireScripts
+    @powerGridScripts
 </body>
 
 </html>
