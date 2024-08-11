@@ -106,13 +106,23 @@
         {{ __('Settings') }}
     </div>
 
-    <!-- Nav Item - Profile -->
-    <li class="nav-item {{ Nav::isRoute('profile') }}">
-        <a class="nav-link" href="{{ route('profile') }}">
+    <!-- Nav Item - Add KPS -->
+    @if (auth()->user()->role == 'Admin')
+    <li class="nav-item {{ Nav::isRoute('access-policy.kps') }}">
+        <a class="nav-link" href="{{ route('access-policy.kps') }}">
             <i class="fas fa-fw fa-user"></i>
-            <span>{{ __('Profile') }}</span>
+            <span>{{ __('Add KPS') }}</span>
         </a>
     </li>
+    @endif
+
+        <!-- Nav Item - Profile -->
+        <li class="nav-item {{ Nav::isRoute('profile') }}">
+            <a class="nav-link" href="{{ route('profile') }}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>{{ __('Profile') }}</span>
+            </a>
+        </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

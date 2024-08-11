@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessPolicyController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\KuesionerController;
@@ -68,8 +69,14 @@ Route::middleware(['auth'])->group(function () {
     // Middleware Chart Alumni
     Route::controller(ChartController::class)->as('chart.')->group(function () {
         Route::get('alumni-chart', 'get_alumni_info')->name('alumni-chart');
-
     });
+
+        // Middleware Access Policy
+        Route::controller(AccessPolicyController::class)->as('access-policy.')->group(function () {
+            Route::get('kps', 'index')->name('kps');
+            Route::get('add-kps', 'create_kps')->name('add-kps');
+            Route::post('f_create', 'f_create')->name('f_create');
+        });
 });
 
 Route::get('/about', function () {
