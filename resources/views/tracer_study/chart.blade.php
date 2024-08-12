@@ -280,37 +280,37 @@
                 type: 'value'
             },
             series: [{
-                    name: 'Lecture',
+                    name: 'Perkuliahan',
                     type: 'bar',
                     datasetIndex: 0
                 },
                 {
-                    name: 'Demo',
+                    name: 'Demonstrasi',
                     type: 'bar',
                     datasetIndex: 1
                 },
                 {
-                    name: 'Project',
+                    name: 'Proyek Riset',
                     type: 'bar',
                     datasetIndex: 2
                 },
                 {
-                    name: 'Internship',
+                    name: 'Magang',
                     type: 'bar',
                     datasetIndex: 3
                 },
                 {
-                    name: 'Pratical',
+                    name: 'Praktikum',
                     type: 'bar',
                     datasetIndex: 4
                 },
                 {
-                    name: 'Field',
+                    name: 'Kerja lapangan',
                     type: 'bar',
                     datasetIndex: 5
                 },
                 {
-                    name: 'Discussion',
+                    name: 'Diskusi',
                     type: 'bar',
                     datasetIndex: 6
                 },
@@ -582,27 +582,27 @@
                 type: 'value'
             },
             series: [{
-                    name: 'Ethics',
+                    name: 'Etika',
                     type: 'bar',
                     datasetIndex: 0,
                 },
                 {
-                    name: 'Expertise',
+                    name: 'Keahlian',
                     type: 'bar',
                     datasetIndex: 1,
                 },
                 {
-                    name: 'English',
+                    name: 'Bahasa Inggris',
                     type: 'bar',
                     datasetIndex: 2,
                 },
                 {
-                    name: 'Tech',
+                    name: 'Teknologi Informasi',
                     type: 'bar',
                     datasetIndex: 3,
                 },
                 {
-                    name: 'Communication',
+                    name: 'Komunikasi',
                     type: 'bar',
                     datasetIndex: 4,
                 },
@@ -612,7 +612,7 @@
                     datasetIndex: 5,
                 },
                 {
-                    name: 'Development',
+                    name: 'Pengembangan diri',
                     type: 'bar',
                     datasetIndex: 6,
                 },
@@ -667,37 +667,37 @@
                 type: 'value'
             },
             series: [{
-                    name: 'Ethics',
+                    name: 'Etika',
                     type: 'bar',
                     datasetIndex: 0,
                 },
                 {
-                    name: 'Expertise',
+                    name: 'Keahlian',
                     type: 'bar',
                     datasetIndex: 1,
                 },
                 {
-                    name: 'English',
+                    name: 'Bahasa Inggris',
                     type: 'bar',
                     datasetIndex: 2,
                 },
                 {
-                    name: 'Tech',
+                    name: 'Teknologi Informasi',
                     type: 'bar',
                     datasetIndex: 3,
                 },
                 {
-                    name: 'Communication',
+                    name: 'Komunikasi',
                     type: 'bar',
                     datasetIndex: 4,
                 },
                 {
-                    name: 'Teamwork',
+                    name: 'Kerja sama tim',
                     type: 'bar',
                     datasetIndex: 5,
                 },
                 {
-                    name: 'Development',
+                    name: 'Pengembangan diri',
                     type: 'bar',
                     datasetIndex: 6,
                 },
