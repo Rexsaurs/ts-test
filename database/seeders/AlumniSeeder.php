@@ -14,12 +14,12 @@ class AlumniSeeder extends Seeder
     {
         Alumni::create([
                 "user_id" => 2,
-                "prodi" => 'Teknik Informatika - TI',
+                "prodi" => 'Teknik Informatika',
                 "jenjang" => 'D4',
                 "jenis_kelamin" => 'Laki-laki',
                 "agama" => 'Islam',
-                "tahun_masuk" => '2017/2018',
-                "tahun_lulus" => '2022/2023',
+                "tahun_masuk" => '2017',
+                "tahun_lulus" => '2022',
         ]);
     }
 }

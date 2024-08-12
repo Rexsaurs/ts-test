@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    @if (auth()->user()->role == 'Admin')
+    @if (auth()->user()->role == 'Admin' || 'KPS')
         @include('assets.card')
     @endif
 
@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="text-center">
                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                            src="{{ asset('img/svg/undraw_editable_dywm.svg') }}" alt="">
+                            src="{{ asset('img/svg/undraw_graduation_re_gthn.svg') }}" alt="">
                     </div>
                     <h4 class="fw-bold text-center mt-5">
                         Selamat Datang <span class="font-weight-bold">{{ ucfirst(auth()->user()->name) }}</span> di Aplikasi

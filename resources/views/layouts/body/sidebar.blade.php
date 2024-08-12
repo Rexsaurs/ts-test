@@ -36,7 +36,7 @@
             </a>
         </li>
 
-        @if (auth()->user()->role == 'Admin')
+        @if (auth()->user()->role == 'Admin' || 'KPS')
             <!-- Nav Item - Chart Alumni -->
             <li class="nav-item {{ Nav::isRoute('alumni.chart') }}" id="chart alumni">
                 <a class="nav-link" href="{{ route('alumni.chart') }}">

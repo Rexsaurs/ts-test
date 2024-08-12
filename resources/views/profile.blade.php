@@ -92,7 +92,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        @if (auth()->user()->role == 'Admin')
+                                        @if (auth()->user()->role == 'Admin' || 'KPS')
                                         <label class="form-control-label" for="username">NIP<span
                                             class="small text-danger">*</span></label>
                                         @endif
