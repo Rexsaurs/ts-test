@@ -8,6 +8,7 @@ use App\Models\kuesioner\Kuesioner_Tracer_Study;
 use App\Models\kuesioner\Work;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Number;
 
@@ -58,9 +59,13 @@ class HomeController extends Controller
             'pendapatan' => $pendapatan_format
             //...
         ];
+
         $count_answer = 0;
-        if (auth()->user()->role == 'Alumni') {
+
+        if (User::where('role', 'Alumni')) {
+
             $count_answer  = DB::table('kuesioner')->where('alumni_id', auth()->id())->count();
+
         }
 
         return view('home', [

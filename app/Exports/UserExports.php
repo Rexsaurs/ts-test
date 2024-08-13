@@ -17,7 +17,6 @@ class UserExports implements FromArray, WithHeadings
 	U.EMAIL,
 	U.USERNAME,
 	U.PHONE_NUMBER,
-	U.ROLE,
 	A.PRODI,
 	A.JENJANG,
 	A.JENIS_KELAMIN,
