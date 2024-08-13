@@ -58,7 +58,7 @@
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-bar-chart"></i>
-                    <span>Hasl Kuesioner Tracer Study</span>
+                    <span>Hasil Kuesioner Tracer Study</span>
                 </a>
                 <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar" style="">
