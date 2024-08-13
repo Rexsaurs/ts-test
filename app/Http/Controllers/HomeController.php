@@ -62,9 +62,11 @@ class HomeController extends Controller
 
         $count_answer = 0;
 
+        $alumni = User::where('id',Auth::user()->id)->with('alumni')->first();
+
         if (User::where('role', 'Alumni')) {
 
-            $count_answer  = DB::table('kuesioner')->where('alumni_id', auth()->id())->count();
+            $count_answer  = DB::table('kuesioner')->where('alumni_id', $alumni->alumni->id)->count();
 
         }
 
