@@ -167,6 +167,8 @@
         }
     </style>
 
+@stack('scripts')
+
     @livewireScripts
 </body>
 

@@ -66,8 +66,8 @@ class HomeController extends Controller
 
             $alumni = User::where('id', Auth::user()->id)->with('alumni')->first();
 
-
-            $count_answer  = DB::table('kuesioner')->where('alumni_id', $alumni->alumni->id)->count();
+            if ($alumni->alumni)
+                $count_answer  = DB::table('kuesioner')->where('alumni_id', $alumni->alumni->id)->count();
         }
 
         return view('home', [
