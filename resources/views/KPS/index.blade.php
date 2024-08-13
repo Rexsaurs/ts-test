@@ -32,56 +32,38 @@
                 <h6 class="m-0 font-weight-bold text-primary">Data KPS</h6>
             </div>
             <div class="card-body">
-                <a href="{{ route('access-policy.add-kps') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <a href="{{ route('access-policy.add-kps') }}"
+                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-plus fa-sm text-white-50"></i> Add KPS
                 </a>
                 <br>
                 <hr>
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
+                        <div class="d-flex">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
                                     role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                rowspan="1" colspan="1" aria-sort="ascending" style="width: 110px;">
-                                                No</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" style="width: 170px;">Nama KPS</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" style="width: 77px;">Email</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" style="width: 31px;">Username</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" style="width: 75px;">Program Studi</th>
-                                            {{-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" --}}
-                                            {{-- colspan="1" aria-label="Tahun Lulus: activate to sort column ascending" --}}
-                                            {{-- style="width: 67px;">Action</th> --}}
+                                            <th>No</th>
+                                            <th>Nama KPS</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Program Studi</th>
                                         </tr>
                                     </thead>
-                                    @foreach ($data as $user)
-                                        <tbody>
-                                            <tr class="odd">
-                                                <th>{{ $loop->iteration }}</th>
+                                    <tbody>
+                                        @foreach ($data as $user)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->username }}</td>
                                                 <td>{{ $user->kps->prodi }}</td>
-                                                {{-- <td>
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="col p-0">
-                                                        <button class="btn btn-primary btn-sm" data-toggle="modal"
-                                                            data-target="#modal-detail-{{ $user->id }}">
-                                                            <i class="fas fa-eye"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </td> --}}
                                             </tr>
-                                        </tbody>
-                                    @endforeach
+                                        @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -92,3 +74,16 @@
 
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#dataTable").DataTable();
+        })
+    </script>
+@endpush

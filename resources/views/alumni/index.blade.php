@@ -5,9 +5,6 @@
 
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">List Data Alumni</h1>
-        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-            For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
-                DataTables documentation</a>.</p>
 
         @if (session('success'))
             <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
@@ -44,7 +41,7 @@
                 <hr>
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
+                        <div class="d-flex">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
                                     role="grid" aria-describedby="dataTable_info" style="width: 100%;">
@@ -77,8 +74,8 @@
                                                 style="width: 67px;">Action</th>
                                         </tr>
                                     </thead>
-                                    @foreach ($data as $user)
-                                        <tbody>
+                                    <tbody>
+                                        @foreach ($data as $user)
                                             <tr class="odd">
                                                 <th>{{ $loop->iteration }}</th>
                                                 <td>{{ $user->name }}</td>
@@ -96,114 +93,112 @@
                                                             </button>
                                                         </div>
                                                         @if ($user->kuesioner)
-                                                        <div class="col p-0">
-                                                            {{-- Liat Histori Form Tracer Study --}}
-                                                            <a class="btn btn-warning btn-sm"
-                                                                href="{{ URL::route('alumni.view_kuesioner', [$user->id]) }}">
-                                                                <i class="fa-regular fa-clipboard"></i>
-                                                            </a>
-                                                        </div>
+                                                            <div class="col p-0">
+                                                                {{-- Liat Histori Form Tracer Study --}}
+                                                                <a class="btn btn-warning btn-sm"
+                                                                    href="{{ URL::route('alumni.view_kuesioner', [$user->id]) }}">
+                                                                    <i class="fa-regular fa-clipboard"></i>
+                                                                </a>
+                                                            </div>
                                                         @endif
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </tbody>
-                                        <div class="modal fade" id="modal-detail-{{ $user->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">
-                                                            {{ __('Data Alumni') }}</h5>
-                                                        <button class="close" type="button" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id" class="col-form-label">Nama
-                                                                    Alumni:</label>
-                                                                <input value="{{ $user->name }}" type="text"
-                                                                    class="form-control" id="lead_id" readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id" class="col-form-label">NIM
-                                                                    Alumni:</label>
-                                                                <input value="{{ $user->username }}" type="text"
-                                                                    class="form-control" id="lead_id" readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id" class="col-form-label">Email
-                                                                    Alumni:</label>
-                                                                <input value="{{ $user->email }}" type="text"
-                                                                    class="form-control" id="lead_id" readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id" class="col-form-label">Nomor Telpon
-                                                                    Alumni:</label>
-                                                                <input value="{{ $user->phone_number }}" type="text"
-                                                                    class="form-control" id="lead_id" readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id" class="col-form-label">Prodi
-                                                                    Alumni:</label>
-                                                                <input
-                                                                    value="{{ $user->alumni != null ? $user->alumni->prodi : '-' }}"
-                                                                    type="text" class="form-control" id="lead_id"
-                                                                    readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id" class="col-form-label">Jenjang
-                                                                    Alumni:</label>
-                                                                <input
-                                                                    value="{{ $user->alumni != null ? $user->alumni->jenjang : '-' }}"
-                                                                    type="text" class="form-control" id="lead_id"
-                                                                    readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id" class="col-form-label">Jenis Kelamin
-                                                                    Alumni:</label>
-                                                                <input
-                                                                    value="{{ $user->alumni != null ? $user->alumni->jenis_kelamin : '-' }}"
-                                                                    type="text" class="form-control" id="lead_id"
-                                                                    readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id" class="col-form-label">Agama
-                                                                    Alumni:</label>
-                                                                <input
-                                                                    value="{{ $user->alumni != null ? $user->alumni->agama : '-' }}"
-                                                                    type="text" class="form-control" id="lead_id"
-                                                                    readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id"
-                                                                    class="col-form-label">Angkatan:</label>
-                                                                <input
-                                                                    value="{{ $user->alumni != null ? $user->alumni->tahun_masuk : '-' }}"
-                                                                    type="text" class="form-control" id="lead_id"
-                                                                    readonly>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="lead_id"
-                                                                    class="col-form-label">Lulusan:</label>
-                                                                <input
-                                                                    value="{{ $user->alumni != null ? $user->alumni->tahun_lulus : '-' }}"
-                                                                    type="text" class="form-control" id="lead_id"
-                                                                    readonly>
-                                                            </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-primary" type="button"
-                                                            data-dismiss="modal">{{ __('Cancel') }}</button>
-                                                        </form>
-                                                    </div>
+                                        @endforeach
+                                    </tbody>
+                                    <div class="modal fade" id="modal-detail-{{ $user->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                        {{ __('Data Alumni') }}</h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Nama
+                                                                Alumni:</label>
+                                                            <input value="{{ $user->name }}" type="text"
+                                                                class="form-control" id="lead_id" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">NIM
+                                                                Alumni:</label>
+                                                            <input value="{{ $user->username }}" type="text"
+                                                                class="form-control" id="lead_id" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Email
+                                                                Alumni:</label>
+                                                            <input value="{{ $user->email }}" type="text"
+                                                                class="form-control" id="lead_id" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Nomor Telpon
+                                                                Alumni:</label>
+                                                            <input value="{{ $user->phone_number }}" type="text"
+                                                                class="form-control" id="lead_id" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Prodi
+                                                                Alumni:</label>
+                                                            <input
+                                                                value="{{ $user->alumni != null ? $user->alumni->prodi : '-' }}"
+                                                                type="text" class="form-control" id="lead_id"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Jenjang
+                                                                Alumni:</label>
+                                                            <input
+                                                                value="{{ $user->alumni != null ? $user->alumni->jenjang : '-' }}"
+                                                                type="text" class="form-control" id="lead_id"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Jenis Kelamin
+                                                                Alumni:</label>
+                                                            <input
+                                                                value="{{ $user->alumni != null ? $user->alumni->jenis_kelamin : '-' }}"
+                                                                type="text" class="form-control" id="lead_id"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Agama
+                                                                Alumni:</label>
+                                                            <input
+                                                                value="{{ $user->alumni != null ? $user->alumni->agama : '-' }}"
+                                                                type="text" class="form-control" id="lead_id"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Angkatan:</label>
+                                                            <input
+                                                                value="{{ $user->alumni != null ? $user->alumni->tahun_masuk : '-' }}"
+                                                                type="text" class="form-control" id="lead_id"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="lead_id" class="col-form-label">Lulusan:</label>
+                                                            <input
+                                                                value="{{ $user->alumni != null ? $user->alumni->tahun_lulus : '-' }}"
+                                                                type="text" class="form-control" id="lead_id"
+                                                                readonly>
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary" type="button"
+                                                        data-dismiss="modal">{{ __('Cancel') }}</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    </div>
                                 </table>
                             </div>
                         </div>
@@ -213,4 +208,19 @@
         </div>
 
     </div>
+
+
 @endsection
+
+@push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#dataTable").DataTable();
+        })
+    </script>
+@endpush
