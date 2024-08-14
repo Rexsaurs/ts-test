@@ -111,7 +111,7 @@
     <li class="nav-item {{ Nav::isRoute('access-policy.kps') }}">
         <a class="nav-link" href="{{ route('access-policy.kps') }}">
             <i class="fas fa-fw fa-user"></i>
-            <span>{{ __('Add KPS') }}</span>
+            <span>{{ __('Kelola KPS') }}</span>
         </a>
     </li>
     @endif

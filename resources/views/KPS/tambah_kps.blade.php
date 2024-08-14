@@ -79,10 +79,10 @@
                                                 class="small text-danger">*</span></label>
                                         <select name="prodi" id="prodi" class="form-control">
                                             <option value="" hidden>Select One</option>
-                                            <option value="TI">Teknik Informatika - TI</option>
-                                            <option value="TMJ">Teknik Multimedia Jaringan - TMJ</option>
-                                            <option value="TMD">Teknik Multimedia Digital - TMD</option>
-                                            <option value="TKJ">Teknik Komputer Jaringan - TKJ</option>
+                                            <option value="TI">Teknik Informatika</option>
+                                            <option value="TMJ">Teknik Multimedia Jaringan</option>
+                                            <option value="TMD">Teknik Multimedia Digital</option>
+                                            <option value="TKJ">Teknik Komputer Jaringan</option>
                                         </select>
                                     </div>
                                 </div>
