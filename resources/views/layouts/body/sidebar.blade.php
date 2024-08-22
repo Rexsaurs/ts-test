@@ -60,41 +60,36 @@
                     <i class="fas fa-bar-chart"></i>
                     <span>Hasil Kuesioner Tracer Study</span>
                 </a>
-                <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar" style="">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Program Studi:</h6>
-                        <a class="collapse-item" href="{{ route('tracer-study.charts_all') }}">All Program</a>
-                        <a class="collapse-item" href="{{ route('tracer-study.charts_ti') }}">TI (D4)</a>
-                        <a class="collapse-item" href="{{ route('tracer-study.charts_tmj') }}">TMJ (D4)</a>
-                        <a class="collapse-item" href="{{ route('tracer-study.charts_tmd') }}">TMD (D4)</a>
-                        <a class="collapse-item" href="{{ route('tracer-study.charts_tkj') }}">TKJ (D1)</a>
+
+                @if (auth()->user()->role == 'Admin')
+                    <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar" style="">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Program Studi:</h6>
+                            <a class="collapse-item" href="{{ route('tracer-study.charts_all') }}">All Program</a>
+                            <a class="collapse-item" href="{{ route('tracer-study.charts_ti') }}">TI (D4)</a>
+                            <a class="collapse-item" href="{{ route('tracer-study.charts_tmj') }}">TMJ (D4)</a>
+                            <a class="collapse-item" href="{{ route('tracer-study.charts_tmd') }}">TMD (D4)</a>
+                            <a class="collapse-item" href="{{ route('tracer-study.charts_tkj') }}">TKJ (D1)</a>
+                        </div>
                     </div>
-                </div>
+                @endif
+
+                @if (auth()->user()->role == 'KPS')
+                    @if (Auth::user()->KPS->prodi == 'TI')
+                        @include('layouts.body.sidebar_ti')
+                    @endif
+                    @if (Auth::user()->KPS->prodi == 'TMJ')
+                        @include('layouts.body.sidebar_tmj')
+                    @endif
+                    @if (Auth::user()->KPS->prodi == 'TMD')
+                        @include('layouts.body.sidebar_tmd')
+                    @endif
+                    @if (Auth::user()->KPS->prodi == 'TKJ')
+                        @include('layouts.body.sidebar_tkj')
+                    @endif
+                @endif
             </li>
-
-            {{-- <!-- Heading -->
-        <div class="sidebar-heading">
-            {{ __('Pengguna Alumni') }}
-        </div> --}}
-
-            {{-- <!-- Nav Item - Invite Pengguna Alumni -->
-        <li class="nav-item {{ Nav::isRoute('pengguna-alumni.invitation') }}">
-            <a class="nav-link" href="{{ route('pengguna-alumni.invitation') }}">
-                <i class="fa-solid fa-envelopes-bulk"></i>
-                <span>{{ __('Invite Pengguna Alumni') }}</span>
-            </a>
-        </li>
-
-        <!-- Nav Item - List Pengguna Alumni -->
-        <li class="nav-item {{ Nav::isRoute('pengguna-alumni.index') }}">
-            <a class="nav-link" href="{{ route('pengguna-alumni.index') }}">
-                <i class="fa-solid fa-user-tie"></i>
-                <span>{{ __('List Pengguna Alumni') }}</span>
-            </a>
-        </li> --}}
-
-            <!-- Divider -->
         @endif
 
         <hr class="sidebar-divider">
@@ -107,21 +102,21 @@
 
     <!-- Nav Item - Add KPS -->
     @if (auth()->user()->role == 'Admin')
-    <li class="nav-item {{ Nav::isRoute('access-policy.kps') }}">
-        <a class="nav-link" href="{{ route('access-policy.kps') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>{{ __('Kelola KPS') }}</span>
-        </a>
-    </li>
-    @endif
-
-        <!-- Nav Item - Profile -->
-        <li class="nav-item {{ Nav::isRoute('profile') }}">
-            <a class="nav-link" href="{{ route('profile') }}">
+        <li class="nav-item {{ Nav::isRoute('access-policy.kps') }}">
+            <a class="nav-link" href="{{ route('access-policy.kps') }}">
                 <i class="fas fa-fw fa-user"></i>
-                <span>{{ __('Profile') }}</span>
+                <span>{{ __('Tambah KPS') }}</span>
             </a>
         </li>
+    @endif
+
+    <!-- Nav Item - Profile -->
+    <li class="nav-item {{ Nav::isRoute('profile') }}">
+        <a class="nav-link" href="{{ route('profile') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>{{ __('Profile') }}</span>
+        </a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
