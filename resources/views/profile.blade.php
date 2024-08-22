@@ -111,6 +111,19 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
+                                        @if (auth()->user()->role == 'KPS')
+                                        <label class="form-control-label" for="username">Program Studi<span
+                                            class="small text-danger">*</span></label>
+                                        @endif
+                                        <input type="text" disabled="disabled" id="prodi" class="form-control" name="prodi"
+                                            value="{{ old('prodi', Auth::user()->KPS->prodi) }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
                                         <label class="form-control-label" for="phone_number">Nomor Telpon<span
                                                 class="small text-danger">*</span></label>
                                         <input type="number" id="phone_number" class="form-control" name="phone_number"

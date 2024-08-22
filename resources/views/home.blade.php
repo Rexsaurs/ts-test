@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    @if (auth()->user()->role == 'Admin' || 'KPS')
+    @if (auth()->user()->role == 'Admin')
         @include('assets.card')
     @endif
 
