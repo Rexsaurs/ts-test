@@ -104,7 +104,7 @@
     @if (auth()->user()->role == 'Admin')
         <li class="nav-item {{ Nav::isRoute('access-policy.kps') }}">
             <a class="nav-link" href="{{ route('access-policy.kps') }}">
-                <i class="fas fa-fw fa-user"></i>
+                <i class="fa-solid fa-users-line"></i>
                 <span>{{ __('Tambah KPS') }}</span>
             </a>
         </li>

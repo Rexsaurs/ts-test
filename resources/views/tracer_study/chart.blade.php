@@ -193,7 +193,7 @@
         // Specify the configuration items and data for the chart
         var prodiOption = {
             title: {
-                text: 'Status Alumni'
+                text: 'Status Alumni Saat Ini'
             },
             dataset: {
                 dimensions: ['STATUS', 'JUMLAH'],
@@ -203,14 +203,14 @@
                 show: true
             },
             series: [{
-                name: 'Status Alumni',
+                name: 'Status Alumni Saat Ini',
                 type: 'pie',
             }]
         };
 
         var methodOption = {
             title: {
-                text: 'Rata - Rata Penilaian Methodologi Pengajaran (Round Up)',
+                text: 'Rata - Rata Penilaian Methodologi Pengajaran',
                 subtext: 'Jumlah Responden: ' + ALUMNI
             },
             tooltip: {
@@ -228,7 +228,6 @@
                 type: 'value'
             },
             series: [{
-                name: 'Methodology',
                 type: 'bar',
                 data: Object.values(averageMethod)
             }]
@@ -363,10 +362,10 @@
                 source: positionData
             }, ],
             xAxis: {
-                type: 'category'
+                type: 'value'
             },
             yAxis: {
-                type: 'value'
+                type: 'category'
             },
             series: [{
                 name: 'Upah (Rupiah)',

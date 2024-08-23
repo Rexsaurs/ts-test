@@ -22,6 +22,21 @@
         @include('assets.card')
     @endif
 
+    @if (auth()->user()->role == 'KPS')
+        @if (Auth::user()->KPS->prodi == 'TI')
+            @include('assets.card_ti')
+        @endif
+        @if (Auth::user()->KPS->prodi == 'TMJ')
+            @include('assets.card_tmj')
+        @endif
+        @if (Auth::user()->KPS->prodi == 'TMD')
+            @include('assets.card_tmd')
+        @endif
+        @if (Auth::user()->KPS->prodi == 'TKJ')
+            @include('assets.card_tkj')
+        @endif
+    @endif
+
     <div class="row">
 
         <div class="col-lg-12 mb-4">

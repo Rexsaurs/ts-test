@@ -34,7 +34,7 @@ class KuesionerController extends Controller
         DB::beginTransaction();
 
        $payment_source = array_key_exists("p_university_payment_source", $form_value) ? $form_value['p_university_payment_source'] : null;
-       
+
         //Table Kuesioner
         DB::table('kuesioner')->insert([
             'alumni_id' => $user->alumni->id,
@@ -275,7 +275,7 @@ class KuesionerController extends Controller
             "Organisasi non-profit/Lembaga Swadaya Masyarakat",
             "Perusahaan swasta",
             "Wiraswasta/perusahaan sendiri",
-            "5",
+            "Lainnya",
         ];
 
         $company_type = Work::countCompany($prodi, 'COMPANY_TYPE', $type);
