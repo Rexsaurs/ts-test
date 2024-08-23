@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumni;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,66 +11,49 @@ class ChartController extends Controller
     public function get_alumni_info()
     {
         // $data = DB::table("alumnis")->select(['id','prodi','jenjang','agama', 'tahun_masuk','tahun_lulus'])->get();
+        $prodi_options = [
+            "Teknik Informatika",
+            "Teknik Multimedia dan Jaringan",
+            "Teknik Multimedia Digital",
+            "Teknik Komputer dan Jaringan"
+        ];
+        $prodi =  Alumni::get_alumni_chart("prodi", $prodi_options);
 
-        $prodi = DB::select("
-                select
-                	a.prodi,
-                	count(a.prodi) as jml_prodi
-                from
-                	alumnis a
-                group by
-                	a.prodi
-    ");
+        $jenjang_options = ["D1", "D4"];
+        $jenjang = Alumni::get_alumni_chart("jenjang", $jenjang_options);
 
-        $jenjang = DB::select("
-    select
-        a.jenjang,
-        count(a.jenjang) as jml_jenjang
-    from
-        alumnis a
-    group by
-        a.jenjang
-");
+        $jenis_kelamin_options = ["Laki-laki", "Perempuan"];
+        $jenis_kelamin = Alumni::get_alumni_chart("jenis_kelamin", $jenis_kelamin_options);
 
-        $jenis_kelamin = DB::select("
-select
-    a.jenis_kelamin,
-    count(a.jenis_kelamin) as jml_jenis_kelamin
-from
-    alumnis a
-group by
-    a.jenis_kelamin
-");
+        $agama_options = [
+            "Islam",
+            "Kristen Protestan",
+            "Kristen Katolik",
+            "Hindu",
+            "Buddha",
+            "Konghuchu"
+        ];
+        $agama = Alumni::get_alumni_chart("agama", $agama_options);
 
-        $agama = DB::select("
-select
-    a.agama,
-    count(a.agama) as jml_agama
-from
-    alumnis a
-group by
-    a.agama
-");
+        $tahun_masuk_options = [
+            "2014",
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019"
+        ];
+        $tahun_masuk = Alumni::get_alumni_chart("tahun_masuk", $tahun_masuk_options);
 
-        $tahun_masuk = DB::select("
-select
-    a.tahun_masuk,
-    count(a.tahun_masuk) as jml_tahun_masuk
-from
-    alumnis a
-group by
-    a.tahun_masuk
-");
-
-        $tahun_lulus = DB::select("
-select
-    a.tahun_lulus,
-    count(a.tahun_lulus) as jml_tahun_lulus
-from
-    alumnis a
-group by
-    a.tahun_lulus
-");
+        $tahun_lulus_options = [
+            "2018",
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023"
+        ];
+        $tahun_lulus = Alumni::get_alumni_chart("tahun_lulus", $tahun_lulus_options);
 
         return [
             'prodi' => $prodi,

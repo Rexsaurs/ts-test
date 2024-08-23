@@ -108,4 +108,45 @@ WHERE
 
         return $kuesioner_education;
     }
+
+    public static function get_alumni_chart(string $type, array $data)
+    {
+        // Fetch the data and group by the specified type
+        $result = DB::select("
+            SELECT
+                a.$type,
+                COUNT(a.$type) AS jml_$type
+            FROM
+                alumnis a
+            GROUP BY
+                a.$type
+        ");
+    
+        // Initialize status map and calculate total data count
+        $statusMap = array_column($result, 'jml_' . $type, $type);
+        $total_data = array_sum($statusMap);
+    
+        // Add missing statuses with a count of 0
+        foreach ($data as $key) {
+            $statusMap[$key] = $statusMap[$key] ?? 0;
+        }
+    
+        // Calculate percentage if total_data is not zero
+        if ($total_data > 0) {
+            foreach ($statusMap as $key => $count) {
+                $statusMap[$key] = ($count / $total_data) * 100;
+            }
+        }
+    
+        // Convert status map back to objects
+        $result = array_map(function($key) use ($type, $statusMap) {
+            return (object) [
+                $type => (string) $key,
+                'jml_' . $type => $statusMap[$key],
+            ];
+        }, array_keys($statusMap));
+    
+        return $result;
+    }
+    
 }
