@@ -183,6 +183,11 @@
                 dimensions: ['STATUS', 'JUMLAH'],
                 source: workStatus
             },
+            legend: {
+                orient: 'vertical',
+                show: true,
+                right: 20
+            },
             tooltip: {
                 show: true,
                 formatter: (data) => {
@@ -219,6 +224,7 @@
                 }
             },
             legend: {
+                orient: 'vertical',
                 show: true,
                 right: 20,
                 top: 25,
@@ -283,6 +289,7 @@
                 source: positionData
             },
             legend: {
+                orient: 'vertical',
                 show: true,
                 right: 20
             },
@@ -311,6 +318,7 @@
                 show: true
             },
             legend: {
+                orient: 'vertical',
                 show: true,
                 right: 20
             },
@@ -322,10 +330,10 @@
                 source: positionData
             }, ],
             xAxis: {
-                type: 'value'
+                type: 'category'
             },
             yAxis: {
-                type: 'category'
+                type: 'value'
             },
             series: [{
                 name: 'Upah (Rupiah)',
@@ -342,6 +350,7 @@
                 show: true
             },
             legend: {
+                orient: 'vertical',
                 show: true,
                 right: 20
             },
@@ -394,7 +403,7 @@
             }, ],
             tooltip: {
                 show: true,
-                formatter: (data) => {                    
+                formatter: (data) => {
                     let format = `<span>${data.seriesName}</span>
                                             <br />
                                             <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
@@ -440,7 +449,7 @@
             }, ],
             tooltip: {
                 show: true,
-                formatter: (data) => {                    
+                formatter: (data) => {
                     let format = `<span>${data.seriesName}</span>
                                             <br />
                                             <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
@@ -475,7 +484,7 @@
             },
             tooltip: {
                 show: true,
-                formatter: (data) => {                    
+                formatter: (data) => {
                     let format = `<span>${data.seriesName}</span>
                                             <br />
                                             <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
@@ -502,7 +511,7 @@
             },
             tooltip: {
                 show: true,
-                formatter: (data) => {                    
+                formatter: (data) => {
                     let format = `<span>${data.seriesName}</span>
                                             <br />
                                             <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
@@ -543,6 +552,7 @@
                 }
             },
             legend: {
+                orient: 'vertical',
                 show: true,
                 right: 20,
                 top: 25,
@@ -615,6 +625,7 @@
                 }
             },
             legend: {
+                orient: 'vertical',
                 show: true,
                 right: 20,
                 top: 25,
