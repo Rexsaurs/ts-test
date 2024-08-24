@@ -112,11 +112,11 @@ LEFT JOIN ALUMNIS A ON
 
             $result[] = (object) [
                 'Category' => $value->alias,
-                'Score 1' => (int) $row->SCORE_1,
-                'Score 2' => (int) $row->SCORE_2,
-                'Score 3' => (int) $row->SCORE_3,
-                'Score 4' => (int) $row->SCORE_4,
-                'Score 5' => (int) $row->SCORE_5,
+                'Sangat Besar' => (int) $row->SCORE_1,
+                'Besar' => (int) $row->SCORE_2,
+                'Cukup Besar' => (int) $row->SCORE_3,
+                'Kurang' => (int) $row->SCORE_4,
+                'Tidak Sama Sekali' => (int) $row->SCORE_5,
             ];
         }
 

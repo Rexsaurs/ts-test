@@ -229,21 +229,21 @@
                 right: 20,
                 top: 25,
                 data: [
-                    "Score 1",
-                    "Score 2",
-                    "Score 3",
-                    "Score 4",
-                    "Score 5",
+                    "Sangat Besar",
+                    "Besar",
+                    "Cukup Besar",
+                    "Kurang",
+                    "Tidak Sama Sekali",
                 ]
             },
             dataset: {
                 dimensions: [
                     "Category",
-                    "Score 1",
-                    "Score 2",
-                    "Score 3",
-                    "Score 4",
-                    "Score 5",
+                    "Sangat Besar",
+                    "Besar",
+                    "Cukup Besar",
+                    "Kurang",
+                    "Tidak Sama Sekali",
                 ],
                 source: methodPercent
             },
@@ -255,23 +255,23 @@
                 type: 'value'
             },
             series: [{
-                    name: "Score 1",
+                    name: "Sangat Besar",
                     type: 'bar'
                 },
                 {
-                    name: "Score 2",
+                    name: "Besar",
                     type: 'bar'
                 },
                 {
-                    name: "Score 3",
+                    name: "Cukup Besar",
                     type: 'bar'
                 },
                 {
-                    name: "Score 4",
+                    name: "Kurang",
                     type: 'bar'
                 },
                 {
-                    name: "Score 5",
+                    name: "Tidak Sama Sekali",
                     type: 'bar'
                 },
             ]

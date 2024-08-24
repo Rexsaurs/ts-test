@@ -78,7 +78,7 @@ class Competency extends Model
                 LEFT JOIN KUESIONER K ON
                 	K.ID = KW.TRACER_STUDY_ID
                 LEFT JOIN ALUMNIS A ON
-                	A.ID = K.ALUMNI_ID 
+                	A.ID = K.ALUMNI_ID
                     WHERE KC.TYPE = '$type' "
                 . ($prodi ? "AND A.PRODI = '$prodi'" : ""))[0];
 
