@@ -37,45 +37,60 @@ class Competency extends Model
         return $this->belongsTo(Work::class);
     }
 
-    public static function countCompetency(?string $prodi, string $type, string $category)
+    public static function countCompetency(?string $prodi, string $type)
     {
-        $result = DB::select("SELECT
-                            	KC.$category AS SCORE,
-                            	COUNT(KC.$category) AS JUMLAH
-                            FROM
-                            	KUESIONER_COMPETENCY KC
-                            LEFT JOIN KUESIONER_WORK KW ON
-                            	KW.ID = KC.KUESIONER_WORK_ID
-                            LEFT JOIN KUESIONER K ON
-                            	K.ID = KW.TRACER_STUDY_ID
-                            LEFT JOIN ALUMNIS A ON
-                            	A.ID = K.ALUMNI_ID
-                            WHERE
-                                KC.`type` = '$type' " .
-            ($prodi == null ? "" : " AND A.PRODI = '$prodi' ")
-            . " GROUP BY
-                            	 KC.$category;");
-
-        $status = [
-            1, 2, 3, 4, 5
+        $categories = [
+            (object) ["name" =>"ETHICS", "alias" => "Etika"],
+            (object) ["name" =>"EXPERTISE", "alias" => "Pengetahuan"],
+            (object) ["name" =>"ENGLISH", "alias" => "Bahasa Inggris"],
+            (object) ["name" =>"TECH", "alias" => "Teknologi"],
+            (object) ["name" =>"COMMUNICATION", "alias" => "Komunikasi"],
+            (object) ["name" =>"TEAMWORK", "alias" => "Kerjasama"],
+            (object) ["name" =>"DEVELOPMENT", "alias" => "Perkembangan"],
         ];
 
-        $statusMap = [];
-        foreach ($result as $row) {
-            $statusMap[$row->SCORE] = $row->JUMLAH;
+        $totalRows = DB::table('KUESIONER_COMPETENCY AS KC')
+        ->leftJoin('KUESIONER_WORK AS KW', 'KW.ID', '=', 'KC.KUESIONER_WORK_ID')
+        ->leftJoin('KUESIONER AS K', 'K.ID', '=', 'KW.TRACER_STUDY_ID')
+        ->leftJoin('ALUMNIS AS A', 'A.ID', '=', 'K.ALUMNI_ID')
+        ->select([
+            DB::raw("SUM(CASE WHEN KC.TYPE = 'work' THEN 1 ELSE 0 END) AS work_count"),
+            DB::raw("SUM(CASE WHEN KC.TYPE = 'graduation' THEN 1 ELSE 0 END) AS graduation_count")
+        ])
+        ->when($prodi, function ($query, $prodi) {
+            return $query->where('A.prodi', $prodi);
+        })
+        ->first();
+        $work_count = $totalRows->work_count;
+        $graduation_count = $totalRows->graduation_count;
+
+        foreach ($categories as $key => $value) {
+            $row = DB::select("SELECT
+                ROUND((COUNT(CASE WHEN KC.$value->name = 1 THEN 1 END)/ ".($type == "work" ? $work_count : $graduation_count)." * 100),0) AS SCORE_1,
+                ROUND((COUNT(CASE WHEN KC.$value->name = 2 THEN 1 END)/ ".($type == "work" ? $work_count : $graduation_count)." * 100),0) AS SCORE_2,
+                ROUND((COUNT(CASE WHEN KC.$value->name = 3 THEN 1 END)/ ".($type == "work" ? $work_count : $graduation_count)." * 100),0) AS SCORE_3,
+                ROUND((COUNT(CASE WHEN KC.$value->name = 4 THEN 1 END)/ ".($type == "work" ? $work_count : $graduation_count)." * 100),0) AS SCORE_4,
+                ROUND((COUNT(CASE WHEN KC.$value->name = 5 THEN 1 END)/ ".($type == "work" ? $work_count : $graduation_count)." * 100),0) AS SCORE_5
+                FROM
+                	KUESIONER_COMPETENCY KC
+                LEFT JOIN KUESIONER_WORK KW ON
+                	KW.ID = KC.KUESIONER_WORK_ID
+                LEFT JOIN KUESIONER K ON
+                	K.ID = KW.TRACER_STUDY_ID
+                LEFT JOIN ALUMNIS A ON
+                	A.ID = K.ALUMNI_ID 
+                    WHERE KC.TYPE = '$type' "
+                . ($prodi ? "AND A.PRODI = '$prodi'" : ""))[0];
+
+            $result[] = (object) [
+                'Category' => $value->alias,
+                'Score 1' => (int) $row->SCORE_1,
+                'Score 2' => (int) $row->SCORE_2,
+                'Score 3' => (int) $row->SCORE_3,
+                'Score 4' => (int) $row->SCORE_4,
+                'Score 5' => (int) $row->SCORE_5,
+            ];
         }
-
-        // Iterate over $status array to add missing statuses with jumlah 0
-        foreach ($status as $key) {
-            if (!isset($statusMap[$key])) {
-                $result[] = (object) ['SCORE' => $key, 'JUMLAH' => 0];
-            }
-        }
-
-
-        usort($result, function ($a, $b) {
-            return strcmp($a->SCORE, $b->SCORE);
-        });
 
         return $result;
     }

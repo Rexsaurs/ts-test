@@ -33,13 +33,13 @@ class KuesionerController extends Controller
         //Begin db transaction for questionare answers
         DB::beginTransaction();
 
-       $payment_source = array_key_exists("p_university_payment_source", $form_value) ? $form_value['p_university_payment_source'] : null;
+        $payment_source = array_key_exists("p_university_payment_source", $form_value) ? $form_value['p_university_payment_source'] : null;
 
         //Table Kuesioner
         DB::table('kuesioner')->insert([
             'alumni_id' => $user->alumni->id,
             'alumni_status' => $form_value['p_alumni_status'],
-            'university_payment_source' => $payment_source ? ($payment_source == "7" ? $form_value['p_university_payment_source_remarks']: $payment_source) : null,
+            'university_payment_source' => $payment_source ? ($payment_source == "7" ? $form_value['p_university_payment_source_remarks'] : $payment_source) : null,
             'lecture_method' => $form_value['p_lecture_method'],
             'demo_method' => $form_value['p_demo_method'],
             'project_method' => $form_value['p_project_method'],
@@ -66,8 +66,8 @@ class KuesionerController extends Controller
                 'company_regency' => $form_value['p_company_regency'],
                 'company_type' => $form_value['p_company_type'] != '5' ? $form_value['p_company_type'] : $form_value['p_company_type_other'],
                 'company_level' => $form_value['p_company_level'],
-                "university_company_relation"=> $form_value['p_university_company_relation'],
-                "university_company_level"=> $form_value['p_university_company_level'],
+                "university_company_relation" => $form_value['p_university_company_relation'],
+                "university_company_level" => $form_value['p_university_company_level'],
                 'applied_company' => $form_value['p_applied_company'],
                 'applied_company_responded' => $form_value['p_applied_company_responded'],
                 'applied_company_interviewed' => $form_value['p_applied_company_interview'],
@@ -192,6 +192,7 @@ class KuesionerController extends Controller
 
     public function charts_ti()
     {
+
         $prodi = 'Teknik Informatika';
         return $this->kuesioner_data($prodi);
     }
@@ -239,22 +240,10 @@ class KuesionerController extends Controller
     {
         $types = ['work', 'graduation'];
 
-        $categories = [
-            "ETHICS",
-            "EXPERTISE",
-            "ENGLISH",
-            "TECH",
-            "COMMUNICATION",
-            "TEAMWORK",
-            "DEVELOPMENT",
-        ];
-
         $competency_data = [];
 
         foreach ($types as $name => $type) {
-            foreach ($categories as $key => $category) {
-                $competency_data[$type][$category] = Competency::countCompetency($prodi, $type, $category);
-            }
+            $competency_data[$type] = Competency::countCompetency($prodi, $type);
         }
 
         return $competency_data;
@@ -262,6 +251,8 @@ class KuesionerController extends Controller
 
     public function kuesioner_data($prodi = null)
     {
+        $this->competency_score($prodi);
+        $methodPercent = Kuesioner_Tracer_Study::countPercentMethod($prodi);
         $workStatus = Work::countWorkStatus($prodi);
         $averageMethod = Kuesioner_Tracer_Study::countAverageMethod($prodi);
         $jobPosition = Work::countJobPosition($prodi);
@@ -312,6 +303,7 @@ class KuesionerController extends Controller
         return view('tracer_study.chart', [
             'workStatus' => $workStatus,
             'averageMethod' => $averageMethod,
+            'methodPercent' => $methodPercent,
             'lectureScore' => $method_data['LECTURE_METHOD'],
             'demoScore' => $method_data['DEMO_METHOD'],
             'projectScore' => $method_data['PROJECT_METHOD'],
