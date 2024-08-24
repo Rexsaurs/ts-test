@@ -114,6 +114,11 @@
                         dimensions: ['prodi', 'jml_prodi'],
                         source: res.prodi
                     },
+                    legend: {
+                        orient: 'vertical',
+                        show: true,
+                        right: 20
+                    },
                     tooltip: {
                         show: true,
                         formatter: (data) => {
@@ -137,6 +142,11 @@
                     dataset: {
                         dimensions: ['jenjang', 'jml_jenjang'],
                         source: res.jenjang
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        show: true,
+                        right: 20
                     },
                     tooltip: {
                         show: true,
@@ -162,10 +172,16 @@
                         dimensions: ['jenis_kelamin', 'jml_jenis_kelamin'],
                         source: res.jenis_kelamin
                     },
+                    legend: {
+                        orient: 'vertical',
+                        show: true,
+                        right: 20
+                    },
                     tooltip: {
                         show: true,
                         formatter: (data) => {
-                            let format = `<span>${data.seriesName}</span>
+                            let format =
+                                `<span>${data.seriesName}</span>
                                             <br />
                                             <div>${data.marker} ${data.name} : ${data.value.jml_jenis_kelamin} %</div>`;
 
@@ -185,6 +201,11 @@
                     dataset: {
                         dimensions: ['agama', 'jml_agama'],
                         source: res.agama
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        show: true,
+                        right: 20
                     },
                     tooltip: {
                         show: true,
@@ -210,15 +231,21 @@
                         dimensions: ['tahun_masuk', 'jml_tahun_masuk'],
                         source: res.tahun_masuk
                     },
+                    legend: {
+                        orient: 'vertical',
+                        show: true,
+                        right: 20
+                    },
                     tooltip: {
                         show: true,
                         formatter: (data) => {
-                            let format = `<span>${data.seriesName}</span>
+                            let format =
+                                `<span>${data.seriesName}</span>
                                             <br />
                                             <div>${data.marker} ${data.value.tahun_masuk} : ${data.value.jml_tahun_masuk} %</div>`;
 
-                                            console.log(data);
-                                            
+                            console.log(data);
+
                             return format;
                         }
                     },
@@ -236,10 +263,16 @@
                         dimensions: ['tahun_lulus', 'jml_tahun_lulus'],
                         source: res.tahun_lulus
                     },
+                    legend: {
+                        orient: 'vertical',
+                        show: true,
+                        right: 20
+                    },
                     tooltip: {
                         show: true,
                         formatter: (data) => {
-                            let format = `<span>${data.seriesName}</span>
+                            let format =
+                                `<span>${data.seriesName}</span>
                                             <br />
                                             <div>${data.marker} ${data.value.tahun_lulus} : ${data.value.jml_tahun_lulus} %</div>`;
 

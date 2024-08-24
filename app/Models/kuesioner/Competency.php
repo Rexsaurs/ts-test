@@ -84,11 +84,11 @@ class Competency extends Model
 
             $result[] = (object) [
                 'Category' => $value->alias,
-                'Score 1' => (int) $row->SCORE_1,
-                'Score 2' => (int) $row->SCORE_2,
-                'Score 3' => (int) $row->SCORE_3,
-                'Score 4' => (int) $row->SCORE_4,
-                'Score 5' => (int) $row->SCORE_5,
+                'Sangat Rendah' => (int) $row->SCORE_1,
+                'Rendah' => (int) $row->SCORE_2,
+                'Cukup' => (int) $row->SCORE_3,
+                'Tinggi' => (int) $row->SCORE_4,
+                'Sangat Tinggi' => (int) $row->SCORE_5,
             ];
         }
 
