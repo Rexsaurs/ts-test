@@ -532,6 +532,9 @@
             }, ]
         };
 
+        console.log(work, graduation);
+        
+
         var competencyWorkOption = {
             title: {
                 text: 'Penilaian Kompetensi Pada Pekerjaan',
@@ -566,6 +569,7 @@
             },
             dataset: {
                 dimensions: [
+                    "Category",
                     "Sangat Rendah",
                     "Rendah",
                     "Cukup",
@@ -629,21 +633,21 @@
                 right: 20,
                 top: 25,
                 data: [
-                    "Score 1",
-                    "Score 2",
-                    "Score 3",
-                    "Score 4",
-                    "Score 5",
+                    "Sangat Rendah",
+                    "Rendah",
+                    "Cukup",
+                    "Tinggi",
+                    "Sangat Tinggi",
                 ]
             },
             dataset: {
                 dimensions: [
                     "Category",
-                    "Score 1",
-                    "Score 2",
-                    "Score 3",
-                    "Score 4",
-                    "Score 5",
+                    "Sangat Rendah",
+                    "Rendah",
+                    "Cukup",
+                    "Tinggi",
+                    "Sangat Tinggi",
                 ],
                 source: graduation
             },
@@ -655,23 +659,23 @@
                 type: 'value'
             },
             series: [{
-                    name: "Score 1",
+                    name: "Sangat Rendah",
                     type: 'bar'
                 },
                 {
-                    name: "Score 2",
+                    name: "Rendah",
                     type: 'bar'
                 },
                 {
-                    name: "Score 3",
+                    name: "Cukup",
                     type: 'bar'
                 },
                 {
-                    name: "Score 4",
+                    name: "Tinggi",
                     type: 'bar'
                 },
                 {
-                    name: "Score 5",
+                    name: "Sangat Tinggi",
                     type: 'bar'
                 },
             ]
