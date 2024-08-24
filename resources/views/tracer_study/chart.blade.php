@@ -54,15 +54,6 @@
                 <h6 class="m-0 font-weight-bold text-primary">Chart Alumni Berdasarkan Program Studi</h6>
             </div>
             <div class="card-body">
-                <div id="every-methodology" style="width: 100%;height:400px;"></div>
-            </div>
-        </div>
-
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Chart Alumni Berdasarkan Program Studi</h6>
-            </div>
-            <div class="card-body">
                 <div id="job-position-0" style="width: 100%;height:400px;"></div>
             </div>
         </div>
@@ -148,17 +139,11 @@
 
     <script type="text/javascript">
         var workStatus = @json($workStatus);
+        var methodPercent = @json($methodPercent);
         var {
             ALUMNI,
             ...averageMethod
         } = @json($averageMethod);
-        var lectureScore = @json($lectureScore);
-        var demoScore = @json($demoScore);
-        var projectScore = @json($projectScore);
-        var internScore = @json($internScore);
-        var praticalScore = @json($praticalScore);
-        var fieldScore = @json($fieldScore);
-        var discussionScore = @json($discussionScore);
         var positionData = @json($jobPosition);
         var companyTypeData = @json($company_type);
         var companyLevelData = @json($company_level);
@@ -175,7 +160,6 @@
         // Initialize the echarts instance based on the prepared dom
         var prodiChart = echarts.init(document.getElementById('status'));
         var methodChart = echarts.init(document.getElementById('methodology'));
-        var everyMethodChart = echarts.init(document.getElementById('every-methodology'));
         var positionChart = []
 
         positionChart = [
@@ -200,120 +184,89 @@
                 source: workStatus
             },
             tooltip: {
-                show: true
+                show: true,
+                formatter: (data) => {
+                    let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
+
+                    return format;
+                }
             },
             series: [{
-                name: 'Status Alumni Saat Ini',
+                name: 'Status Alumni',
                 type: 'pie',
             }]
         };
 
         var methodOption = {
             title: {
-                text: 'Rata - Rata Penilaian Methodologi Pengajaran',
-                subtext: 'Jumlah Responden: ' + ALUMNI
-            },
-            tooltip: {
-                show: true
-            },
-            legend: {
-                show: true,
-                right: 20
-            },
-            xAxis: {
-                type: 'category',
-                data: Object.keys(averageMethod)
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [{
-                type: 'bar',
-                data: Object.values(averageMethod)
-            }]
-        };
-
-        var everyMethodOption = {
-            title: {
                 text: 'Penilaian Methodologi Pengajaran',
                 subtext: 'Jumlah Responden: ' + ALUMNI
             },
             tooltip: {
-                show: true
+                show: true,
+                trigger: "axis",
+                formatter: (data) => {
+                    let format = `<span>${data[0].name}</span><br />`;
+
+                    data.forEach(element => {
+                        format +=
+                            `<div>${element.marker} ${element.seriesName} : ${element.value[element.seriesName]} %</div>`
+                    });
+
+                    return format;
+                }
             },
             legend: {
                 show: true,
-                right: 20
+                right: 20,
+                top: 25,
+                data: [
+                    "Score 1",
+                    "Score 2",
+                    "Score 3",
+                    "Score 4",
+                    "Score 5",
+                ]
             },
-            dataset: [{
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: lectureScore
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: demoScore
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: projectScore
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: internScore
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: praticalScore
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: fieldScore
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: discussionScore
-                },
-            ],
+            dataset: {
+                dimensions: [
+                    "Category",
+                    "Score 1",
+                    "Score 2",
+                    "Score 3",
+                    "Score 4",
+                    "Score 5",
+                ],
+                source: methodPercent
+            },
             xAxis: {
-                type: 'category'
+                type: 'category',
+                name: 'Category'
             },
             yAxis: {
                 type: 'value'
             },
             series: [{
-                    name: 'Perkuliahan',
-                    type: 'bar',
-                    datasetIndex: 0
+                    name: "Score 1",
+                    type: 'bar'
                 },
                 {
-                    name: 'Demonstrasi',
-                    type: 'bar',
-                    datasetIndex: 1
+                    name: "Score 2",
+                    type: 'bar'
                 },
                 {
-                    name: 'Proyek Riset',
-                    type: 'bar',
-                    datasetIndex: 2
+                    name: "Score 3",
+                    type: 'bar'
                 },
                 {
-                    name: 'Magang',
-                    type: 'bar',
-                    datasetIndex: 3
+                    name: "Score 4",
+                    type: 'bar'
                 },
                 {
-                    name: 'Praktikum',
-                    type: 'bar',
-                    datasetIndex: 4
-                },
-                {
-                    name: 'Kerja lapangan',
-                    type: 'bar',
-                    datasetIndex: 5
-                },
-                {
-                    name: 'Diskusi',
-                    type: 'bar',
-                    datasetIndex: 6
+                    name: "Score 5",
+                    type: 'bar'
                 },
             ]
         };
@@ -334,7 +287,14 @@
                 right: 20
             },
             tooltip: {
-                show: true
+                show: true,
+                formatter: (data) => {
+                    let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
+
+                    return format;
+                }
             },
             series: [{
                 name: 'Jabatan Alumni',
@@ -433,7 +393,14 @@
                 source: companyLevelData
             }, ],
             tooltip: {
-                show: true
+                show: true,
+                formatter: (data) => {                    
+                    let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
+
+                    return format;
+                }
             },
             series: [{
                     name: 'Jumlah Alumni Bekerja Berdasarkan Tipe Perusahaan',
@@ -472,7 +439,14 @@
                 source: educationReason
             }, ],
             tooltip: {
-                show: true
+                show: true,
+                formatter: (data) => {                    
+                    let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
+
+                    return format;
+                }
             },
             series: [{
                     name: 'Lokasi Studi Alumni',
@@ -500,7 +474,14 @@
                 text: 'Jumlah Alumni dengan Pekerjaan yang Tidak Sesuai',
             },
             tooltip: {
-                show: true
+                show: true,
+                formatter: (data) => {                    
+                    let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
+
+                    return format;
+                }
             },
             dataset: {
                 dimensions: [
@@ -520,7 +501,14 @@
                 text: 'Jumlah Methode Pencarian Pekerjaan',
             },
             tooltip: {
-                show: true
+                show: true,
+                formatter: (data) => {                    
+                    let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.percent} %</div>`;
+
+                    return format;
+                }
             },
             dataset: {
                 dimensions: [
@@ -541,81 +529,68 @@
                 subtext: 'Jumlah Responden: ' + ALUMNI
             },
             tooltip: {
-                show: true
+                show: true,
+                trigger: "axis",
+                formatter: (data) => {
+                    let format = `<span>${data[0].name}</span><br />`;
+
+                    data.forEach(element => {
+                        format +=
+                            `<div>${element.marker} ${element.seriesName} : ${element.value[element.seriesName]} %</div>`
+                    });
+
+                    return format;
+                }
             },
             legend: {
                 show: true,
-                right: 20
+                right: 20,
+                top: 25,
+                data: [
+                    "Score 1",
+                    "Score 2",
+                    "Score 3",
+                    "Score 4",
+                    "Score 5",
+                ]
             },
-            dataset: [{
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: work.ETHICS,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: work.EXPERTISE,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: work.ENGLISH,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: work.TECH,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: work.COMMUNICATION,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: work.TEAMWORK,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: work.DEVELOPMENT,
-                },
-            ],
+            dataset: {
+                dimensions: [
+                    "Category",
+                    "Score 1",
+                    "Score 2",
+                    "Score 3",
+                    "Score 4",
+                    "Score 5",
+                ],
+                source: work
+            },
             xAxis: {
-                type: 'category'
+                type: 'category',
+                name: 'Category'
             },
             yAxis: {
                 type: 'value'
             },
             series: [{
-                    name: 'Etika',
-                    type: 'bar',
-                    datasetIndex: 0,
+                    name: "Score 1",
+                    type: 'bar'
                 },
                 {
-                    name: 'Keahlian',
-                    type: 'bar',
-                    datasetIndex: 1,
+                    name: "Score 2",
+                    type: 'bar'
                 },
                 {
-                    name: 'Bahasa Inggris',
-                    type: 'bar',
-                    datasetIndex: 2,
+                    name: "Score 3",
+                    type: 'bar'
                 },
                 {
-                    name: 'Teknologi Informasi',
-                    type: 'bar',
-                    datasetIndex: 3,
+                    name: "Score 4",
+                    type: 'bar'
                 },
                 {
-                    name: 'Komunikasi',
-                    type: 'bar',
-                    datasetIndex: 4,
-                },
-                {
-                    name: 'Teamwork',
-                    type: 'bar',
-                    datasetIndex: 5,
-                },
-                {
-                    name: 'Pengembangan diri',
-                    type: 'bar',
-                    datasetIndex: 6,
+                    name: "Score 5",
+                    type: 'bar'
                 },
             ]
         };
@@ -626,81 +601,68 @@
                 subtext: 'Jumlah Responden: ' + ALUMNI
             },
             tooltip: {
-                show: true
+                show: true,
+                trigger: "axis",
+                formatter: (data) => {
+                    let format = `<span>${data[0].name}</span><br />`;
+
+                    data.forEach(element => {
+                        format +=
+                            `<div>${element.marker} ${element.seriesName} : ${element.value[element.seriesName]} %</div>`
+                    });
+
+                    return format;
+                }
             },
             legend: {
                 show: true,
-                right: 20
+                right: 20,
+                top: 25,
+                data: [
+                    "Score 1",
+                    "Score 2",
+                    "Score 3",
+                    "Score 4",
+                    "Score 5",
+                ]
             },
-            dataset: [{
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: graduation.ETHICS,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: graduation.EXPERTISE,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: graduation.ENGLISH,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: graduation.TECH,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: graduation.COMMUNICATION,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: graduation.TEAMWORK,
-                },
-                {
-                    dimensions: ['SCORE', 'JUMLAH'],
-                    source: graduation.DEVELOPMENT,
-                },
-            ],
+            dataset: {
+                dimensions: [
+                    "Category",
+                    "Score 1",
+                    "Score 2",
+                    "Score 3",
+                    "Score 4",
+                    "Score 5",
+                ],
+                source: graduation
+            },
             xAxis: {
-                type: 'category'
+                type: 'category',
+                name: 'Category'
             },
             yAxis: {
                 type: 'value'
             },
             series: [{
-                    name: 'Etika',
-                    type: 'bar',
-                    datasetIndex: 0,
+                    name: "Score 1",
+                    type: 'bar'
                 },
                 {
-                    name: 'Keahlian',
-                    type: 'bar',
-                    datasetIndex: 1,
+                    name: "Score 2",
+                    type: 'bar'
                 },
                 {
-                    name: 'Bahasa Inggris',
-                    type: 'bar',
-                    datasetIndex: 2,
+                    name: "Score 3",
+                    type: 'bar'
                 },
                 {
-                    name: 'Teknologi Informasi',
-                    type: 'bar',
-                    datasetIndex: 3,
+                    name: "Score 4",
+                    type: 'bar'
                 },
                 {
-                    name: 'Komunikasi',
-                    type: 'bar',
-                    datasetIndex: 4,
-                },
-                {
-                    name: 'Kerja sama tim',
-                    type: 'bar',
-                    datasetIndex: 5,
-                },
-                {
-                    name: 'Pengembangan diri',
-                    type: 'bar',
-                    datasetIndex: 6,
+                    name: "Score 5",
+                    type: 'bar'
                 },
             ]
         };
@@ -708,7 +670,6 @@
         // Display the chart using the configuration items and data just specified.
         prodiChart.setOption(prodiOption);
         methodChart.setOption(methodOption);
-        everyMethodChart.setOption(everyMethodOption);
         positionChart.forEach((element, index) => {
             element.setOption(positionOption[index]);
         });

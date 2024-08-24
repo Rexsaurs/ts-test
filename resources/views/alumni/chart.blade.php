@@ -86,146 +86,183 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"
         integrity="sha256-6EJwvQzVvfYP78JtAMKjkcsugfTSanqe4WGFpUdzo88=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-   <script type="text/javascript">
+    <script type="text/javascript">
         $.ajax({
             url: 'alumni-chart',
             type: 'GET',
             beforeSend: function() {},
             success: function(res) {
-                console.log(res);
 
-        // Initialize the echarts instance based on the prepared dom
-        var prodiChart = echarts.init(document.getElementById('prodi'));
-        var jenjangChart = echarts.init(document.getElementById('jenjang'));
-        var jenisKelaminChart = echarts.init(document.getElementById('jenis-kelamin'));
-        var agamaChart = echarts.init(document.getElementById('agama'));
-        var tahunMasukChart = echarts.init(document.getElementById('tahun-masuk'));
-        var tahunLulusChart = echarts.init(document.getElementById('tahun-lulus'));
+                // Initialize the echarts instance based on the prepared dom
+                var prodiChart = echarts.init(document.getElementById('prodi'));
+                var jenjangChart = echarts.init(document.getElementById('jenjang'));
+                var jenisKelaminChart = echarts.init(document.getElementById('jenis-kelamin'));
+                var agamaChart = echarts.init(document.getElementById('agama'));
+                var tahunMasukChart = echarts.init(document.getElementById('tahun-masuk'));
+                var tahunLulusChart = echarts.init(document.getElementById('tahun-lulus'));
 
-        // Specify the configuration items and data for the chart
-        var prodiOption = {
-            title: {
-                text: 'Jumlah Alumni Berdasarkan Program Studi'
-            },
-            dataset:{
-                dimensions: ['prodi','jml_prodi'],
-                source: res.prodi
-            },
-            tooltip:{
-                show:true
-            },
-            series: [{
-                name: 'Prodi',
-                type: 'pie',
-            }]
-        };
+                // Specify the configuration items and data for the chart
+                var prodiOption = {
+                    title: {
+                        text: 'Jumlah Alumni Berdasarkan Program Studi'
+                    },
+                    dataset: {
+                        dimensions: ['prodi', 'jml_prodi'],
+                        source: res.prodi
+                    },
+                    tooltip: {
+                        show: true,
+                        formatter: (data) => {
+                            let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.value.jml_prodi} %</div>`;
 
-        var jenjangOption = {
-            title: {
-                text: 'Jumlah Alumni Berdasarkan Jenjang Pendidikan'
-            },
-            dataset:{
-                dimensions: ['jenjang','jml_jenjang'],
-                source: res.jenjang
-            },
-            tooltip:{
-                show:true
-            },
-            series: [{
-                name: 'Jenjang',
-                type: 'pie',
-            }]
-        };
+                            return format;
+                        }
+                    },
+                    series: [{
+                        name: 'Prodi',
+                        type: 'pie',
+                    }]
+                };
 
-        var jenisKelaminOption = {
-            title: {
-                text: 'Jumlah Alumni Berdasarkan Jenis Kelamin'
-            },
-            dataset:{
-                dimensions: ['jenis_kelamin','jml_jenis_kelamin'],
-                source: res.jenis_kelamin
-            },
-            tooltip:{
-                show:true
-            },
-            series: [{
-                name: 'Jenis Kelamin',
-                type: 'pie',
-            }]
-        };
+                var jenjangOption = {
+                    title: {
+                        text: 'Jumlah Alumni Berdasarkan Jenjang Pendidikan'
+                    },
+                    dataset: {
+                        dimensions: ['jenjang', 'jml_jenjang'],
+                        source: res.jenjang
+                    },
+                    tooltip: {
+                        show: true,
+                        formatter: (data) => {
+                            let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.value.jml_jenjang} %</div>`;
 
-        var agamaOption = {
-            title: {
-                text: 'Jumlah Alumni Berdasarkan Agama'
-            },
-            dataset:{
-                dimensions: ['agama','jml_agama'],
-                source: res.agama
-            },
-            tooltip:{
-                show:true
-            },
-            series: [{
-                name: 'Agama',
-                type: 'pie',
-            }]
-        };
+                            return format;
+                        }
+                    },
+                    series: [{
+                        name: 'Jenjang',
+                        type: 'pie',
+                    }]
+                };
 
-        var tahunMasukOption = {
-            title: {
-                text: 'Jumlah Alumni Berdasarkan Angkatan'
-            },
-            dataset:{
-                dimensions: ['tahun_masuk','jml_tahun_masuk'],
-                source: res.tahun_masuk
-            },
-            tooltip:{
-                show:true
-            },
-            series: [{
-                name: 'Tahun Masuk',
-                type: 'pie',
-                itemStyle: {
-                    color: function (param) {
-                        var colors = ['red','violet']
-                        return colors[param.dataIndex]
-                    }
-                }
-            }]
-        };
+                var jenisKelaminOption = {
+                    title: {
+                        text: 'Jumlah Alumni Berdasarkan Jenis Kelamin'
+                    },
+                    dataset: {
+                        dimensions: ['jenis_kelamin', 'jml_jenis_kelamin'],
+                        source: res.jenis_kelamin
+                    },
+                    tooltip: {
+                        show: true,
+                        formatter: (data) => {
+                            let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.value.jml_jenis_kelamin} %</div>`;
 
-        var tahunLulusOption = {
-            title: {
-                text: 'Jumlah Alumni Berdasarkan Lulusan'
-            },
-            dataset:{
-                dimensions: ['tahun_lulus','jml_tahun_lulus'],
-                source: res.tahun_lulus
-            },
-            tooltip:{
-                show:true
-            },
-            series: [{
-                name: 'Tahun Lulus',
-                type: 'pie',
-            }]
-        };
+                            return format;
+                        }
+                    },
+                    series: [{
+                        name: 'Jenis Kelamin',
+                        type: 'pie',
+                    }]
+                };
 
-        // Display the chart using the configuration items and data just specified.
-        prodiChart.setOption(prodiOption);
-        jenjangChart.setOption(jenjangOption);
-        jenisKelaminChart.setOption(jenisKelaminOption);
-        agamaChart.setOption(agamaOption);
-        tahunMasukChart.setOption(tahunMasukOption);
-        tahunLulusChart.setOption(tahunLulusOption);
+                var agamaOption = {
+                    title: {
+                        text: 'Jumlah Alumni Berdasarkan Agama'
+                    },
+                    dataset: {
+                        dimensions: ['agama', 'jml_agama'],
+                        source: res.agama
+                    },
+                    tooltip: {
+                        show: true,
+                        formatter: (data) => {
+                            let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.name} : ${data.value.jml_agama} %</div>`;
+
+                            return format;
+                        }
+                    },
+                    series: [{
+                        name: 'Agama',
+                        type: 'pie',
+                    }]
+                };
+
+                var tahunMasukOption = {
+                    title: {
+                        text: 'Jumlah Alumni Berdasarkan Angkatan'
+                    },
+                    dataset: {
+                        dimensions: ['tahun_masuk', 'jml_tahun_masuk'],
+                        source: res.tahun_masuk
+                    },
+                    tooltip: {
+                        show: true,
+                        formatter: (data) => {
+                            let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.value.tahun_masuk} : ${data.value.jml_tahun_masuk} %</div>`;
+
+                                            console.log(data);
+                                            
+                            return format;
+                        }
+                    },
+                    series: [{
+                        name: 'Tahun Masuk',
+                        type: 'pie',
+                    }]
+                };
+
+                var tahunLulusOption = {
+                    title: {
+                        text: 'Jumlah Alumni Berdasarkan Lulusan'
+                    },
+                    dataset: {
+                        dimensions: ['tahun_lulus', 'jml_tahun_lulus'],
+                        source: res.tahun_lulus
+                    },
+                    tooltip: {
+                        show: true,
+                        formatter: (data) => {
+                            let format = `<span>${data.seriesName}</span>
+                                            <br />
+                                            <div>${data.marker} ${data.value.tahun_lulus} : ${data.value.jml_tahun_lulus} %</div>`;
+
+                            return format;
+                        }
+                    },
+                    series: [{
+                        name: 'Tahun Lulus',
+                        type: 'pie',
+                    }]
+                };
+
+                // Display the chart using the configuration items and data just specified.
+                prodiChart.setOption(prodiOption);
+                jenjangChart.setOption(jenjangOption);
+                jenisKelaminChart.setOption(jenisKelaminOption);
+                agamaChart.setOption(agamaOption);
+                tahunMasukChart.setOption(tahunMasukOption);
+                tahunLulusChart.setOption(tahunLulusOption);
             },
             error: function(error) {
                 console.error(error);
             }
         })
-
-
     </script>
 @endsection

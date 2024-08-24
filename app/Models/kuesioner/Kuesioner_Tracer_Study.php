@@ -78,6 +78,51 @@ LEFT JOIN ALUMNIS A ON
         return null;
     }
 
+    public static function countPercentMethod(?string $prodi)
+    {
+        $result =  [];
+
+        $totalRows = DB::table('kuesioner as k')
+            ->leftJoin('alumnis as a', 'a.id', '=', 'k.alumni_id')
+            ->where('a.prodi', 'Teknik Informatika')
+            ->count();
+
+        $methods   = [
+            (object) ["name" => "LECTURE_METHOD", "alias" => 'Perkuliahan'],
+            (object) ["name" => "DEMO_METHOD", "alias" => 'Demonstrasi'],
+            (object) ["name" => "PROJECT_METHOD", "alias" => 'Proyek Riset'],
+            (object) ["name" => "INTERNSHIP_METHOD", "alias" => 'Magang'],
+            (object) ["name" => "PRACTICAL_METHOD", "alias" => 'Praktikum'],
+            (object) ["name" => "FIELD_METHOD", "alias" => 'Kerja lapangan'],
+            (object) ["name" => "DISCUSSION_METHOD", "alias" => 'Diskusi'],
+        ];
+
+        foreach ($methods as $key => $value) {
+            $row = DB::select("SELECT
+                ROUND((COUNT(CASE WHEN K.$value->name = 1 THEN 1 END)/ $totalRows * 100),0) AS SCORE_1,
+                ROUND((COUNT(CASE WHEN K.$value->name = 2 THEN 1 END)/ $totalRows * 100),0) AS SCORE_2,
+                ROUND((COUNT(CASE WHEN K.$value->name = 3 THEN 1 END)/ $totalRows * 100),0) AS SCORE_3,
+                ROUND((COUNT(CASE WHEN K.$value->name = 4 THEN 1 END)/ $totalRows * 100),0) AS SCORE_4,
+                ROUND((COUNT(CASE WHEN K.$value->name = 5 THEN 1 END)/ $totalRows * 100),0) AS SCORE_5
+            FROM
+                KUESIONER K
+            LEFT JOIN ALUMNIS A ON
+                A.ID = K.ALUMNI_ID "
+                . ($prodi ? "WHERE A.PRODI = '$prodi'" : ""))[0];
+
+            $result[] = (object) [
+                'Category' => $value->alias,
+                'Score 1' => (int) $row->SCORE_1,
+                'Score 2' => (int) $row->SCORE_2,
+                'Score 3' => (int) $row->SCORE_3,
+                'Score 4' => (int) $row->SCORE_4,
+                'Score 5' => (int) $row->SCORE_5,
+            ];
+        }
+
+        // dd($result);
+        return $result;
+    }
     public static function countEveryMethod(?string $prodi, string $method)
     {
 
