@@ -533,7 +533,7 @@
         };
 
         console.log(work, graduation);
-        
+
 
         var competencyWorkOption = {
             title: {
@@ -628,7 +628,7 @@
                 }
             },
             legend: {
-                orient: 'vertical',
+                orient: 'horizontal',
                 show: true,
                 right: 20,
                 top: 25,
